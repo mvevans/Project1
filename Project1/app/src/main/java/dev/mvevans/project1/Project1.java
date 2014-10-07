@@ -1,3 +1,4 @@
+//Mark Evans Project 1
 package dev.mvevans.project1;
 
 import android.app.Activity;
@@ -120,16 +121,16 @@ public class Project1 extends Activity implements View.OnClickListener {
         }
     }
 
-    void checkMove(int x, int y, player p){
+    void checkMove(int y, int x, player p){
 
         boolean noWinner = true;
 
-        //columns
+        //rows
         for(int i = 0; i < n; i++){
-            if(grid[x][i] != p) {
+            if(grid[y][i] != p) {
                 break;
             }else{
-                buttons[x][i].setTextColor(getResources().getColor(R.color.red));
+                buttons[y][i].setTextColor(getResources().getColor(R.color.red));
             }
             if(i == n-1){
                 noWinner = false;
@@ -137,13 +138,14 @@ public class Project1 extends Activity implements View.OnClickListener {
             }
         }
 
-        //rows
+        //columns
         if(noWinner) {
+            clearRed(noWinner);
             for (int i = 0; i < n; i++) {
-                if (grid[i][y] != p) {
+                if (grid[i][x] != p) {
                     break;
                 }else{
-                    buttons[i][y].setTextColor(getResources().getColor(R.color.red));
+                    buttons[i][x].setTextColor(getResources().getColor(R.color.red));
                 }
                 if (i == n - 1) {
                     winnerText.setText(playerToString(p)+" Wins!");
@@ -154,6 +156,7 @@ public class Project1 extends Activity implements View.OnClickListener {
 
         //diagonal
         if(noWinner) {
+            clearRed(noWinner);
             if (x == y) {
                 //we're on a diagonal
                 for (int i = 0; i < n; i++) {
@@ -170,8 +173,10 @@ public class Project1 extends Activity implements View.OnClickListener {
             }
         }
 
+
         //reverse diagonal
         if(noWinner) {
+            clearRed(noWinner);
             for (int i = 0; i < n; i++) {
                 if (grid[i][(n - 1) - i] != p) {
                     break;
@@ -195,11 +200,7 @@ public class Project1 extends Activity implements View.OnClickListener {
 
         //clear red text
         if(noWinner){
-            for(int i = 0;i<n;i++){
-                for(int j = 0;j<n;j++){
-                    buttons[i][j].setTextColor(getResources().getColor(R.color.black));
-                }
-            }
+            clearRed(true);
         }else{
             done = true;
         }
@@ -209,6 +210,16 @@ public class Project1 extends Activity implements View.OnClickListener {
             nButton.setEnabled(true);
         }
 
+    }
+
+    void clearRed(boolean noWin){
+        if(noWin) {
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < n; j++) {
+                    buttons[i][j].setTextColor(getResources().getColor(R.color.black));
+                }
+            }
+        }
     }
 
     String playerToString(player p){
