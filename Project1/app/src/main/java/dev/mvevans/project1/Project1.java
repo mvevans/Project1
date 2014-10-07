@@ -97,7 +97,7 @@ public class Project1 extends Activity implements View.OnClickListener {
                                     break;
                             }
                             grid[i][j] = curPlayer;
-                            checkMove(i, j, curPlayer);
+                            check(i, j, curPlayer);
                             numMoves++;
                             break;
                         }
@@ -121,7 +121,7 @@ public class Project1 extends Activity implements View.OnClickListener {
         }
     }
 
-    void checkMove(int y, int x, player p){
+    void check(int y, int x, player p){
 
         boolean noWinner = true;
 
@@ -140,7 +140,7 @@ public class Project1 extends Activity implements View.OnClickListener {
 
         //columns
         if(noWinner) {
-            clearRed(noWinner);
+            clearRed();
             for (int i = 0; i < n; i++) {
                 if (grid[i][x] != p) {
                     break;
@@ -156,7 +156,7 @@ public class Project1 extends Activity implements View.OnClickListener {
 
         //diagonal
         if(noWinner) {
-            clearRed(noWinner);
+            clearRed();
             if (x == y) {
                 //we're on a diagonal
                 for (int i = 0; i < n; i++) {
@@ -176,7 +176,7 @@ public class Project1 extends Activity implements View.OnClickListener {
 
         //reverse diagonal
         if(noWinner) {
-            clearRed(noWinner);
+            clearRed();
             for (int i = 0; i < n; i++) {
                 if (grid[i][(n - 1) - i] != p) {
                     break;
@@ -200,7 +200,7 @@ public class Project1 extends Activity implements View.OnClickListener {
 
         //clear red text
         if(noWinner){
-            clearRed(true);
+            clearRed();
         }else{
             done = true;
         }
@@ -212,12 +212,10 @@ public class Project1 extends Activity implements View.OnClickListener {
 
     }
 
-    void clearRed(boolean noWin){
-        if(noWin) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    buttons[i][j].setTextColor(getResources().getColor(R.color.black));
-                }
+    void clearRed(){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                buttons[i][j].setTextColor(getResources().getColor(R.color.black));
             }
         }
     }
